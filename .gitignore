@@ -1,0 +1,25 @@
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Data files 
+*.csv
+*.xlsx
+*.parquet
+!data/.gitkeep  
+# Model artifacts *.pkl
+*.joblib
+models/
+
+# Environment variables
+.env
