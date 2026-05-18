@@ -37,7 +37,7 @@ real-estate-price-predictor/
 └── src/                    # Source code modules
     ├── __init__.py
     └── model_training.py   # Model training and evaluation logic
-
+   `````
 ## 📊 Model Performance
 The model was trained on the **California Housing Dataset**.
 
