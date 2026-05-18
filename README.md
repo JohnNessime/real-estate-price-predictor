@@ -3,7 +3,9 @@
 A machine learning application that predicts real estate prices based on property features. Built with **Python**, **Scikit-Learn**, and **Streamlit**, this project demonstrates a full end-to-end data science workflow from data exploration to model deployment.
 
 ## 🚀 Live Demo
-*(Add your Streamlit Cloud link here once deployed, e.g., [Link to App](https://your-app.streamlit.app))*
+🔗 **[Try the Live App](https://jn-real-estate-price-predictor.streamlit.app/)**
+
+*Click the link above to interact with the model directly in your browser.*
 
 ## 📋 Project Overview
 The goal of this project is to provide an intuitive interface for estimating housing prices. Using the **California Housing Dataset**, a Random Forest Regressor was trained to achieve an **R² Score of 0.805**, explaining over 80% of the price variance.
