@@ -3,16 +3,15 @@ import pandas as pd
 import numpy as np
 import joblib
 import os
-import matplotlib.pyplot as plt
 
 # --- Page Configuration ---
-st.set_page_config(page_title="Real Estate Price Predictor", page_icon="🏠", layout="wide")
+st.set_page_config(page_title="Real Estate Price Predictor", page_icon="🏠")
 
 # --- Title and Description ---
 st.title("🏠 Real Estate Price Predictor")
 st.write("""
-This application predicts real estate prices based on property features using a 
-**Linear Regression** model trained on the California Housing Dataset.
+This application predicts real estate prices based on various property features. 
+The model was trained on the California Housing Dataset using a Random Forest Regressor.
 """)
 
 # --- Load Model ---
@@ -22,7 +21,7 @@ def load_model():
     if os.path.exists(model_path):
         return joblib.load(model_path)
     else:
-        st.error("Model file not found. Please run `python src/model_training.py` first.")
+        st.error("Model file not found. Please run src/model_training.py first.")
         return None
 
 model = load_model()
@@ -55,44 +54,24 @@ def user_input_features():
 
 input_df = user_input_features()
 
-# --- Main Content Area ---
-col1, col2 = st.columns([2, 1])
+# --- Display User Inputs ---
+st.subheader("User Input Features")
+st.write(input_df)
 
-with col1:
-    st.subheader("User Input Features")
-    st.write(input_df)
-
-    # --- Prediction ---
-    if model is not None:
-        if st.button("Predict Price"):
-            prediction = model.predict(input_df)
-            predicted_price = prediction[0] * 100000  # Convert back to dollars
-            
-            st.success(f"### Estimated Price: ${predicted_price:,.2f}")
-            
-            # Simple Feature Importance (Coefficients for Linear Regression)
-            if hasattr(model, 'coef_'):
-                feature_names = input_df.columns
-                coef = model.coef_
-                importance = pd.DataFrame({'Feature': feature_names, 'Importance': coef})
-                importance = importance.sort_values(by='Importance', ascending=False)
-                
-                st.subheader("Key Price Drivers")
-                fig, ax = plt.subplots()
-                ax.barh(importance['Feature'], importance['Importance'])
-                ax.set_xlabel('Coefficient Impact')
-                ax.set_title('How Features Influence Price')
-                st.pyplot(fig)
-
-with col2:
-    st.info("""
-    **About the Model:**
-    - **Algorithm:** Linear Regression
-    - **Dataset:** California Housing (1990 Census)
-    - **R² Score:** ~0.60 (Simplified for portability)
-    
-    *Note: Prices are in USD. This is a demonstration model.*
-    """)
+# --- Prediction ---
+if model is not None:
+    if st.button("Predict Price"):
+        prediction = model.predict(input_df)
+        predicted_price = prediction[0] * 100000  # Convert back to dollars
+        
+        st.success(f"### Estimated Price: ${predicted_price:,.2f}")
+        
+        st.info("""
+        **Note:** This is a machine learning estimate based on the California Housing Dataset. 
+        Actual market prices may vary based on location-specific factors, condition, and market trends.
+        """)
+else:
+    st.warning("Please ensure the model is trained and saved in the 'models' folder.")
 
 # --- Footer ---
 st.markdown("---")
